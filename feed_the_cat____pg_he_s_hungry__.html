@@ -42,7 +42,7 @@ ROOM 0
 0,a,0,b,b,b,0,0,0,0,0,0,0,0,a,0
 0,a,0,b,b,b,0,0,0,0,0,0,0,0,a,0
 0,a,0,b,b,b,0,0,0,0,0,0,0,0,a,0
-0,a,0,b,b,b,0,0,0,0,0,0,0,0,a,0
+0,a,0,b,b,b,b,b,b,b,b,b,b,b,b,b
 0,a,0,b,b,b,b,b,b,b,b,b,b,b,b,b
 0,a,0,b,b,b,b,b,b,b,b,b,b,b,b,b
 0,a,0,0,0,0,0,0,0,0,0,0,0,0,a,0
@@ -50,9 +50,9 @@ ROOM 0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 NAME Starting Room
 ITM 3 7,6
-EXT 2,2 0 14,11
-EXT 14,11 0 2,2 FX tunnel
-EXT 4,5 1 1,13 FX fade_b DLG 5
+ITM 2 7,9
+EXT 14,11 2 1,1 FX tunnel DLG 7
+EXT 4,5 1 1,13 FX fade_b
 PAL 1
 TUNE 2
 
@@ -75,7 +75,28 @@ ROOM 1
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 NAME house
 EXT 1,13 0 4,5 FX fade_b
-PAL 0
+PAL 1
+
+ROOM 2
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+NAME Area 2
+EXT 1,1 0 14,11 FX tunnel
+PAL 1
 
 TIL a
 00111100
@@ -287,7 +308,14 @@ ITM 3
 NAME food
 
 DLG 0
-I'm a cat
+"""
+{
+  - {item "2"} >= 1 ?
+    {item "2" { = giveTreat + 1}}{giveTreat = giveTreat + 1}
+  - else ?
+    feed me please
+}
+"""
 NAME cat dialog
 
 DLG 2
@@ -297,10 +325,6 @@ NAME key dialog
 DLG 4
 
 NAME treat dialog
-
-DLG 5
-
-NAME exit narration 1
 
 DLG 6
 """
@@ -314,6 +338,25 @@ DLG 6
 }
 """
 NAME locked exit 1
+
+DLG 7
+"""
+{
+  - {item "1"} >= 1 ?
+    {property locked false}
+    The key opens the door!
+  - else ?
+    {property locked true}
+    The door is locked...
+}
+"""
+NAME locked exit 2
+
+DLG 8
+ 
+
+VAR giveTreat
+0
 
 TUNE 1
 3d,0,0,0,3d5,0,0,0,3l,0,0,0,3s,0,0,0
@@ -416,7 +459,7 @@ body {
 	margin:0px;
 	padding:0px;
 	overflow:hidden;
-	background:#ffffff;
+	background:#648c8e;
 }
 
 #game {
